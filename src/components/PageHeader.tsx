@@ -23,7 +23,7 @@ export function PageHeader({
               {breadcrumb.map((b, i) => (
                 <li key={b.href} className="flex items-center gap-1.5">
                   {i > 0 && <span aria-hidden>/</span>}
-                  <Link href={b.href} className="hover:text-amber">
+                  <Link href={b.href} className="hover:text-graphite hover:underline">
                     {b.label}
                   </Link>
                 </li>
@@ -32,7 +32,8 @@ export function PageHeader({
           </nav>
         )}
         {eyebrow && (
-          <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-amber uppercase">
+          <p className="mb-3 flex items-center gap-2 text-xs font-semibold tracking-[0.18em] text-graphite uppercase">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-amber" aria-hidden />
             {eyebrow}
           </p>
         )}

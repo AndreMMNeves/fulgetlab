@@ -13,7 +13,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Contato — peça seu orçamento de Fulget e Granilite",
-  description: `Fale com a ${site.name} pelo WhatsApp, telefone ou e-mail. Orçamento sem compromisso para Fulget e Granilite em ${site.address.serviceArea}.`,
+  description: `Fale com a ${site.name} pelo WhatsApp ou telefone. Orçamento sem compromisso para Fulget e Granilite em ${site.address.serviceArea}.`,
   alternates: { canonical: "/contato" },
 };
 
@@ -33,13 +33,18 @@ export default function ContatoPage() {
       href: site.phone.href,
       external: false,
     },
-    {
-      Icon: MailIcon,
-      titulo: "E-mail",
-      valor: site.email,
-      href: `mailto:${site.email}`,
-      external: false,
-    },
+    // O e-mail só aparece quando estiver preenchido em site.ts.
+    ...(site.email
+      ? [
+          {
+            Icon: MailIcon,
+            titulo: "E-mail",
+            valor: site.email,
+            href: `mailto:${site.email}`,
+            external: false,
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -66,9 +71,9 @@ export default function ContatoPage() {
                   key={titulo}
                   href={href}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex items-center gap-4 rounded-2xl border border-sand-200 bg-white p-5 transition hover:border-amber"
+                  className="flex items-center gap-4 rounded-2xl border border-sand-200 bg-white p-5 transition hover:border-graphite"
                 >
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-amber-50 text-amber">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-amber text-graphite">
                     <Icon className="h-6 w-6" />
                   </span>
                   <span>
@@ -83,7 +88,7 @@ export default function ContatoPage() {
 
             <div className="mt-6 space-y-4 rounded-2xl bg-sand-100 p-6 text-sm text-graphite">
               <p className="flex items-start gap-3">
-                <MapPinIcon className="mt-0.5 h-5 w-5 shrink-0 text-amber" />
+                <MapPinIcon className="mt-0.5 h-5 w-5 shrink-0 text-graphite" />
                 <span>
                   {site.address.street}
                   <br />
@@ -93,7 +98,7 @@ export default function ContatoPage() {
                 </span>
               </p>
               <p className="flex items-start gap-3">
-                <ClockIcon className="mt-0.5 h-5 w-5 shrink-0 text-amber" />
+                <ClockIcon className="mt-0.5 h-5 w-5 shrink-0 text-graphite" />
                 <span>{site.hours}</span>
               </p>
             </div>

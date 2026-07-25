@@ -2,7 +2,8 @@ import Link from "next/link";
 import { site, whatsappLink } from "@/lib/site";
 import { produtos, diferenciais, publicos, etapas, obras, faq } from "@/lib/content";
 import { Container, Button, SectionHeading } from "@/components/ui";
-import { Media } from "@/components/Media";
+import { Photo } from "@/components/Media";
+import { fotosFulget, texturasGranilite } from "@/lib/fotos";
 import { CTASection } from "@/components/CTASection";
 import { FaqAccordion } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
@@ -30,8 +31,15 @@ export default function Home() {
               {site.address.serviceArea}
             </p>
             <h1 className="text-4xl leading-[1.1] font-semibold text-ink sm:text-5xl lg:text-6xl">
-              Pisos em <span className="text-amber">Fulget</span> e{" "}
-              <span className="text-amber">Granilite</span> com acabamento de alto padrão
+              Pisos em{" "}
+              <span className="underline decoration-amber decoration-[6px] underline-offset-[6px]">
+                Fulget
+              </span>{" "}
+              e{" "}
+              <span className="underline decoration-amber decoration-[6px] underline-offset-[6px]">
+                Granilite
+              </span>{" "}
+              com acabamento de alto padrão
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-stone">
               Fabricamos, fornecemos e aplicamos revestimentos duráveis e
@@ -68,18 +76,19 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <Media
-              label="Piso aplicado — foto da obra"
-              tom="terracota"
+            <Photo
+              foto={fotosFulget.areaPiscina}
               aspect="aspect-[4/5]"
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              priority
               className="shadow-xl shadow-black/10"
             />
             <div className="absolute -bottom-5 -left-5 hidden w-44 rotate-[-4deg] sm:block">
-              <Media
-                label="Detalhe do acabamento"
-                tom="cristal"
+              <Photo
+                foto={texturasGranilite.ambar}
                 aspect="aspect-square"
                 rounded="rounded-xl"
+                sizes="176px"
                 className="border-4 border-sand shadow-lg"
               />
             </div>
@@ -105,18 +114,19 @@ export default function Home() {
                 href={`/catalogo/${p.slug}`}
                 className="group flex flex-col overflow-hidden rounded-3xl border border-sand-200 bg-white transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5"
               >
-                <Media
-                  label={`${p.nome} — foto do acabamento`}
-                  tom={p.tom}
-                  aspect="aspect-[16/10]"
+                <Photo
+                  foto={p.capa}
+                  aspect="aspect-[4/3]"
                   rounded="rounded-none"
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="flex flex-1 flex-col p-7">
                   <h3 className="text-2xl font-semibold text-ink">{p.nome}</h3>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-stone">
                     {p.resumo}
                   </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-amber">
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-graphite">
                     Ver detalhes
                     <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
@@ -144,7 +154,7 @@ export default function Home() {
               const Icon = diferencialIcons[i % diferencialIcons.length];
               return (
                 <div key={d.titulo} className="rounded-2xl bg-white p-6">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-amber-50 text-amber">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-amber text-graphite">
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="mt-4 text-lg font-semibold text-ink">{d.titulo}</h3>
@@ -166,23 +176,31 @@ export default function Home() {
             {publicos.map((pub) => (
               <div
                 key={pub.titulo}
-                className="rounded-3xl border border-sand-200 bg-white p-8"
+                className="overflow-hidden rounded-3xl border border-sand-200 bg-white"
               >
-                <h3 className="text-xl font-semibold text-ink">{pub.titulo}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-stone">
-                  {pub.descricao}
-                </p>
-                <ul className="mt-6 space-y-3">
-                  {pub.itens.map((it) => (
-                    <li
-                      key={it}
-                      className="flex items-start gap-3 text-sm text-graphite"
-                    >
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-amber" />
-                      {it}
-                    </li>
-                  ))}
-                </ul>
+                <Photo
+                  foto={pub.foto}
+                  aspect="aspect-[16/9]"
+                  rounded="rounded-none"
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                />
+                <div className="p-8">
+                  <h3 className="text-xl font-semibold text-ink">{pub.titulo}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-stone">
+                    {pub.descricao}
+                  </p>
+                  <ul className="mt-6 space-y-3">
+                    {pub.itens.map((it) => (
+                      <li
+                        key={it}
+                        className="flex items-start gap-3 text-sm text-graphite"
+                      >
+                        <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-graphite" />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
@@ -225,14 +243,19 @@ export default function Home() {
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {obras.slice(0, 6).map((o) => (
-              <figure key={o.titulo} className="group overflow-hidden rounded-2xl">
-                <Media label={o.titulo} tom={o.tom} aspect="aspect-[4/3]" rounded="rounded-2xl" />
-                <figcaption className="mt-3 flex items-center justify-between">
+              <figure key={o.titulo} className="group">
+                <Photo
+                  foto={o.foto}
+                  aspect="aspect-[4/3]"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                />
+                <figcaption className="mt-3 flex items-start justify-between gap-3">
                   <div>
                     <p className="text-sm font-semibold text-ink">{o.titulo}</p>
-                    <p className="text-xs text-stone">{o.local}</p>
+                    <p className="text-xs text-stone">{o.contexto}</p>
                   </div>
-                  <span className="rounded-full bg-sand-100 px-3 py-1 text-xs font-medium text-graphite">
+                  <span className="shrink-0 rounded-full bg-sand-100 px-3 py-1 text-xs font-medium text-graphite">
                     {o.tipo}
                   </span>
                 </figcaption>

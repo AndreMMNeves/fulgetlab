@@ -1,8 +1,22 @@
 /**
  * Conteúdo do site (textos, listas, dados). Edite aqui para atualizar as
- * páginas sem mexer no layout. As fotos reais entram depois no lugar dos
- * placeholders (ver componente <Media />).
+ * páginas sem mexer no layout. As fotos vêm de `@/lib/fotos` — troque a
+ * referência aqui para mudar qual imagem aparece em cada lugar.
  */
+
+import {
+  type Foto,
+  fotosFulget,
+  fotosGranilite,
+  texturasFulget,
+  texturasGranilite,
+} from "@/lib/fotos";
+
+export type Acabamento = {
+  nome: string;
+  /** Amostra fotográfica do acabamento. */
+  foto: Foto;
+};
 
 export type Produto = {
   slug: string;
@@ -11,9 +25,11 @@ export type Produto = {
   descricao: string;
   aplicacoes: string[];
   beneficios: string[];
-  acabamentos: string[];
-  // Cor de destaque usada no placeholder de imagem (tom de pedra)
-  tom: "areia" | "grafite" | "terracota" | "cristal";
+  acabamentos: Acabamento[];
+  /** Foto principal do produto (cards e topo da página). */
+  capa: Foto;
+  /** Fotos secundárias exibidas na galeria da página do produto. */
+  galeria: Foto[];
 };
 
 export const produtos: Produto[] = [
@@ -39,12 +55,23 @@ export const produtos: Produto[] = [
       "Ótimo custo-benefício a longo prazo",
     ],
     acabamentos: [
-      "Seixo rolado natural",
-      "Granilha de mármore",
-      "Agregados coloridos",
-      "Granulometria fina, média e grossa",
+      { nome: "Seixo rolado natural", foto: texturasFulget.seixoAmbar },
+      { nome: "Granilha de mármore", foto: texturasFulget.granilhaMarmore },
+      { nome: "Agregados coloridos", foto: fotosFulget.degrausTerracota },
+      { nome: "Granulometria fina, média e grossa", foto: texturasFulget.granulometriaFina },
     ],
-    tom: "terracota",
+    capa: fotosFulget.deckGrafite,
+    galeria: [
+      fotosFulget.areaPiscina,
+      fotosFulget.areaExternaAmbar,
+      fotosFulget.varandaPergolado,
+      fotosFulget.corredorComercial,
+      fotosFulget.escadaExterna,
+      fotosFulget.entradaResidencia,
+      fotosFulget.estacionamento,
+      fotosFulget.calcadaPublica,
+      fotosFulget.bordaJardim,
+    ],
   },
   {
     slug: "granilite",
@@ -68,19 +95,33 @@ export const produtos: Produto[] = [
       "Pode ser restaurado, voltando ao brilho original",
     ],
     acabamentos: [
-      "Polido brilhante",
-      "Acetinado",
-      "Com juntas de dilatação em latão ou plástico",
-      "Cores lisas ou mescladas",
+      { nome: "Polido brilhante", foto: texturasGranilite.grafite },
+      { nome: "Acetinado", foto: texturasGranilite.branco },
+      { nome: "Com juntas de dilatação", foto: fotosGranilite.corredorDesenho },
+      { nome: "Cores lisas ou mescladas", foto: texturasGranilite.ambar },
     ],
-    tom: "cristal",
+    capa: fotosGranilite.detalheLosango,
+    galeria: [
+      fotosGranilite.hallEscuro,
+      fotosGranilite.degrausSalao,
+      fotosGranilite.escadaVermelha,
+      fotosGranilite.salaoBrilho,
+      fotosGranilite.corredorEscolar,
+      fotosGranilite.hallRose,
+      fotosGranilite.hallInstitucional,
+      fotosGranilite.escadaPolida,
+      fotosGranilite.hallPolido,
+    ],
   },
 ];
 
-/** Modelo de negócio: os dois públicos (B2B e B2C). */
+/**
+ * Os dois públicos atendidos. Os títulos usam linguagem de cliente de
+ * propósito — nada de "B2B/B2C", que é jargão interno.
+ */
 export const publicos = [
   {
-    titulo: "Para empresas e obras (B2B)",
+    titulo: "Para construtoras e obras",
     descricao:
       "Fornecimento de material em escala e execução para construtoras, arquitetos, condomínios e indústrias. Orçamento por metragem, prazos de obra e suporte técnico.",
     itens: [
@@ -89,9 +130,10 @@ export const publicos = [
       "Atendimento a projetos e especificações técnicas",
       "Condições especiais para grandes volumes",
     ],
+    foto: fotosGranilite.corredorEscolar,
   },
   {
-    titulo: "Para você e sua casa (B2C)",
+    titulo: "Para a sua casa",
     descricao:
       "Reforma ou construção residencial com acompanhamento próximo, do orçamento à entrega. Você escolhe cores e acabamentos e nós cuidamos de tudo.",
     itens: [
@@ -100,6 +142,7 @@ export const publicos = [
       "Escolha de cores e acabamentos",
       "Acabamento limpo e no prazo",
     ],
+    foto: fotosFulget.areaPiscina,
   },
 ];
 
@@ -151,14 +194,124 @@ export const etapas = [
   },
 ];
 
-/** Portfólio de obras (placeholders — troque pelas fotos reais). */
-export const obras = [
-  { titulo: "Área de piscina residencial", local: "São Paulo — SP", tipo: "Fulget", tom: "terracota" as const },
-  { titulo: "Hall de edifício comercial", local: "São Paulo — SP", tipo: "Granilite", tom: "cristal" as const },
-  { titulo: "Calçada e fachada", local: "Guarulhos — SP", tipo: "Fulget", tom: "areia" as const },
-  { titulo: "Piso de escola", local: "Osasco — SP", tipo: "Granilite", tom: "grafite" as const },
-  { titulo: "Estacionamento coberto", local: "São Paulo — SP", tipo: "Fulget", tom: "grafite" as const },
-  { titulo: "Loja de varejo", local: "São Bernardo — SP", tipo: "Granilite", tom: "areia" as const },
+export type Obra = {
+  titulo: string;
+  /** Tipo de ambiente atendido (evita afirmar cidades que não conferimos). */
+  contexto: "Residencial" | "Comercial" | "Institucional" | "Área externa";
+  tipo: "Fulget" | "Granilite";
+  foto: Foto;
+};
+
+/** Portfólio de obras — fotos reais executadas pela equipe. */
+export const obras: Obra[] = [
+  {
+    titulo: "Área de piscina com deck antiderrapante",
+    contexto: "Residencial",
+    tipo: "Fulget",
+    foto: fotosFulget.areaPiscina,
+  },
+  {
+    titulo: "Salão comercial em Granilite polido",
+    contexto: "Comercial",
+    tipo: "Granilite",
+    foto: fotosGranilite.salaoBrilho,
+  },
+  {
+    titulo: "Deck externo integrado ao jardim",
+    contexto: "Área externa",
+    tipo: "Fulget",
+    foto: fotosFulget.deckGrafite,
+  },
+  {
+    titulo: "Corredor com desenho embutido no piso",
+    contexto: "Comercial",
+    tipo: "Granilite",
+    foto: fotosGranilite.corredorDesenho,
+  },
+  {
+    titulo: "Varanda com pergolado em tom terracota",
+    contexto: "Residencial",
+    tipo: "Fulget",
+    foto: fotosFulget.varandaPergolado,
+  },
+  {
+    titulo: "Escadaria em Granilite vermelho polido",
+    contexto: "Institucional",
+    tipo: "Granilite",
+    foto: fotosGranilite.escadaVermelha,
+  },
+  {
+    titulo: "Corredor comercial ao longo da fachada",
+    contexto: "Comercial",
+    tipo: "Fulget",
+    foto: fotosFulget.corredorComercial,
+  },
+  {
+    titulo: "Salão amplo com degraus em Granilite",
+    contexto: "Institucional",
+    tipo: "Granilite",
+    foto: fotosGranilite.degrausSalao,
+  },
+  {
+    titulo: "Entrada de residência com faixas de dilatação",
+    contexto: "Residencial",
+    tipo: "Fulget",
+    foto: fotosFulget.entradaResidencia,
+  },
+  {
+    titulo: "Piso com losangos e juntas aparentes",
+    contexto: "Comercial",
+    tipo: "Granilite",
+    foto: fotosGranilite.detalheLosango,
+  },
+  {
+    titulo: "Estacionamento coberto de alto tráfego",
+    contexto: "Comercial",
+    tipo: "Fulget",
+    foto: fotosFulget.estacionamento,
+  },
+  {
+    titulo: "Corredor escolar em Granilite",
+    contexto: "Institucional",
+    tipo: "Granilite",
+    foto: fotosGranilite.corredorEscolar,
+  },
+  {
+    titulo: "Calçada pública em Fulget",
+    contexto: "Área externa",
+    tipo: "Fulget",
+    foto: fotosFulget.calcadaPublica,
+  },
+  {
+    titulo: "Hall em Granilite de tom escuro",
+    contexto: "Comercial",
+    tipo: "Granilite",
+    foto: fotosGranilite.hallEscuro,
+  },
+  {
+    titulo: "Área de lazer com piscina",
+    contexto: "Residencial",
+    tipo: "Fulget",
+    foto: fotosFulget.piscinaAreaLazer,
+  },
+  {
+    titulo: "Hall residencial em Granilite rosé",
+    contexto: "Residencial",
+    tipo: "Granilite",
+    foto: fotosGranilite.hallRose,
+  },
+  {
+    titulo: "Escada externa com degraus revestidos",
+    contexto: "Área externa",
+    tipo: "Fulget",
+    foto: fotosFulget.escadaExterna,
+  },
+  {
+    titulo: "Hall institucional com medalhão no piso",
+    contexto: "Institucional",
+    tipo: "Granilite",
+    foto: fotosGranilite.hallInstitucional,
+  },
 ];
 
 /** Perguntas frequentes (bom para SEO e para o cliente). */

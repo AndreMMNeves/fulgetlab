@@ -106,6 +106,14 @@ export function InstagramIcon(props: IconProps) {
   );
 }
 
+export function FacebookIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3H9v8h3v-8h2.5l.5-3H12V6.5a1 1 0 0 1 1-1h2Z" />
+    </svg>
+  );
+}
+
 export function ShieldIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>

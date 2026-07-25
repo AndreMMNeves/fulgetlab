@@ -2,28 +2,28 @@
 
 /*
  * ============================================================================
- *  DESIGN TOKENS — paleta inspirada em pedra natural (Fulget/Granilite)
- *  Grafite (estrutura) + areia (fundo quente) + âmbar (destaque/CTA).
- *  Para trocar a identidade visual, ajuste as variáveis abaixo.
+ *  DESIGN TOKENS — identidade visual FulgetLab
+ *  Petróleo #003333 (estrutura) + amarelo #FFCC00 (destaque), extraídos
+ *  diretamente dos arquivos oficiais do logotipo.
  * ============================================================================
+ *
+ *  REGRA DE CONTRASTE (importante):
+ *  o amarelo da marca só é legível como PREENCHIMENTO com texto escuro em
+ *  cima, ou como cor de texto/ícone SOBRE FUNDO ESCURO. Em fundo claro use
+ *  `text-graphite` (petróleo) para textos de destaque, nunca `text-amber`.
  */
 
 @theme {
-  /*
-   * Paleta: AZUL PETRÓLEO + CORAL (moderna, vibrante, marcante).
-   * Os nomes dos tokens (graphite/amber) são mantidos por compatibilidade,
-   * mas os VALORES definem a identidade — mude aqui para ajustar tudo.
-   */
-  --color-ink: #12262a;          /* texto principal / grafite azulado */
-  --color-graphite: #0e3a42;     /* PETRÓLEO (headers, footer, seções escuras) */
-  --color-graphite-700: #0a2c33; /* petróleo mais escuro */
-  --color-stone: #5c6b70;        /* texto secundário (cinza-azulado) */
-  --color-sand: #f5f3f0;         /* fundo claro principal (quase branco) */
-  --color-sand-100: #ece8e2;     /* superfícies/cards */
-  --color-sand-200: #ddd7ce;     /* bordas */
-  --color-amber: #e2603b;        /* CORAL — destaque / CTA */
-  --color-amber-600: #c64f2c;    /* coral hover */
-  --color-amber-50: #fbeae3;     /* coral bem clarinho (fundos de ícone) */
+  --color-ink: #072a28;          /* texto principal (petróleo bem escuro) */
+  --color-graphite: #003333;     /* PETRÓLEO da marca — header, footer, seções escuras */
+  --color-graphite-700: #002424; /* petróleo mais escuro */
+  --color-stone: #566a68;        /* texto secundário */
+  --color-sand: #f6f5f2;         /* fundo claro principal */
+  --color-sand-100: #eceae4;     /* superfícies/cards */
+  --color-sand-200: #dcd9d1;     /* bordas */
+  --color-amber: #ffcc00;        /* AMARELO da marca — preenchimentos e CTA */
+  --color-amber-600: #e6b800;    /* amarelo hover */
+  --color-amber-50: #fff7d6;     /* amarelo bem clarinho (fundos de ícone) */
 
   /* Fontes (definidas via next/font no layout) */
   --font-sans: var(--font-inter);
@@ -56,11 +56,15 @@
   }
   ::selection {
     background: var(--color-amber);
-    color: #fff;
+    color: var(--color-graphite);
   }
   :focus-visible {
-    outline: 2px solid var(--color-amber);
+    outline: 2px solid var(--color-graphite);
     outline-offset: 2px;
+  }
+  /* Sobre fundo escuro o foco precisa do amarelo para aparecer. */
+  .on-dark :focus-visible {
+    outline-color: var(--color-amber);
   }
 }
 

@@ -1,46 +1,42 @@
-import { ImageIcon } from "@/components/icons";
-
-const tons: Record<string, string> = {
-  areia: "from-[#d8cbb6] to-[#b9a888]",
-  grafite: "from-[#1a5560] to-[#0e3a42]", // petróleo
-  terracota: "from-[#e07a53] to-[#c0492a]", // coral (harmoniza com o CTA)
-  cristal: "from-[#cdd8d7] to-[#9aabab]",
-};
-
-type MediaProps = {
-  /** Texto que descreve a foto que vai entrar aqui (também vira alt real). */
-  label?: string;
-  tom?: keyof typeof tons | string;
-  className?: string;
-  /** Proporção via aspect-* do Tailwind (ex.: "aspect-[4/3]"). */
-  aspect?: string;
-  rounded?: string;
-};
+import Image from "next/image";
+import type { Foto } from "@/lib/fotos";
 
 /**
- * Placeholder de imagem com textura de pedra. Substitua por <Image /> do
- * next/image quando as fotos reais estiverem disponíveis, mantendo o alt.
+ * Foto real de obra. Usa next/image com `fill` dentro de uma caixa com
+ * proporção fixa (aspect-*), então a imagem sempre preenche o espaço sem
+ * distorcer e sem causar layout shift.
  */
-export function Media({
-  label = "Foto da obra",
-  tom = "grafite",
-  className = "",
+export function Photo({
+  foto,
   aspect = "aspect-[4/3]",
   rounded = "rounded-2xl",
-}: MediaProps) {
-  const gradient = tons[tom] ?? tons.grafite;
+  className = "",
+  imgClassName = "",
+  sizes = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
+  priority = false,
+}: {
+  foto: Foto;
+  /** Proporção da caixa via aspect-* do Tailwind (ex.: "aspect-[4/5]"). */
+  aspect?: string;
+  rounded?: string;
+  className?: string;
+  imgClassName?: string;
+  /** Dica de largura para o Next escolher a resolução certa. */
+  sizes?: string;
+  priority?: boolean;
+}) {
   return (
     <div
-      role="img"
-      aria-label={label}
-      className={`stone-grain relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${gradient} ${aspect} ${rounded} ${className}`}
+      className={`relative overflow-hidden bg-sand-100 ${aspect} ${rounded} ${className}`}
     >
-      <div className="flex flex-col items-center gap-2 px-4 text-center text-white/80">
-        <ImageIcon className="h-7 w-7 opacity-70" />
-        <span className="text-xs font-medium tracking-wide uppercase opacity-80">
-          {label}
-        </span>
-      </div>
+      <Image
+        src={foto.src}
+        alt={foto.alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className={`object-cover ${foto.pos ?? ""} ${imgClassName}`}
+      />
     </div>
   );
 }

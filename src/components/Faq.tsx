@@ -23,7 +23,7 @@ export function FaqAccordion({ items }: { items: Item[] }) {
                 {item.pergunta}
               </span>
               <span
-                className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-sand-200 text-amber transition-transform ${
+                className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-sand-200 text-graphite transition-transform ${
                   isOpen ? "rotate-45" : ""
                 }`}
                 aria-hidden

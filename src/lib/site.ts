@@ -10,39 +10,41 @@
 
 export const site = {
   // Nome fantasia da empresa (aparece no topo, rodapé, títulos e SEO)
-  name: "Fulgran Revestimentos",
+  name: "FulgetLab Revestimentos",
   // Nome curto (usado quando falta espaço)
-  shortName: "Fulgran",
+  shortName: "FulgetLab",
   // Slogan / posicionamento
   tagline: "Pisos em Fulget e Granilite com acabamento de alto padrão",
   // Descrição institucional curta (usada em SEO/meta description padrão)
   description:
     "Fabricação, fornecimento e aplicação de revestimentos em Fulget e Granilite para obras residenciais, comerciais e industriais em São Paulo e região. Qualidade, durabilidade e acabamento impecável.",
 
-  // Domínio final do site (ajuste quando publicar) — usado em SEO/sitemap
-  url: "https://www.fulgran.com.br",
+  // Endereço público atual do site — usado em SEO/sitemap/OG.
+  // Troque quando o domínio próprio entrar no ar.
+  url: "https://fulgetlab-site.vercel.app",
 
   // ---------------------------------------------------------------------------
   //  CONTATO
   // ---------------------------------------------------------------------------
   phone: {
-    display: "(11) 2955-5025",
-    href: "tel:+551129555025",
+    display: "(11) 99159-7869",
+    href: "tel:+5511991597869",
   },
   whatsapp: {
     // Apenas dígitos, com DDI 55 + DDD. Ex.: 5511999999999
-    number: "5511999999999",
-    display: "(11) 99999-9999",
+    number: "5511991597869",
+    display: "(11) 99159-7869",
     // Mensagem que já vem preenchida ao abrir a conversa
     message: "Olá! Gostaria de um orçamento de revestimento (Fulget/Granilite).",
   },
-  email: "contato@fulgran.com.br",
+  // Deixe vazio para esconder o e-mail do site (rodapé e página de contato).
+  email: "",
 
   address: {
-    street: "Rua Exemplo, 000 — Bairro",
+    street: "R. Eng. José Pastore, 138 — Jardim das Graças",
     city: "São Paulo",
     state: "SP",
-    zip: "00000-000",
+    zip: "02714-050",
     // Região atendida (importante para SEO local)
     serviceArea: "São Paulo e Grande São Paulo",
   },
@@ -50,8 +52,9 @@ export const site = {
   hours: "Segunda a sexta, 8h às 17h30 — Sábado, 8h às 12h",
 
   social: {
-    instagram: "https://instagram.com/", // ex.: https://instagram.com/fulgran
-    facebook: "",
+    instagram: "https://www.instagram.com/fulgetlab",
+    facebook:
+      "https://www.facebook.com/people/Fulget-Lab-Fulget-e-Granilite/61592164253250/",
   },
 
   // ---------------------------------------------------------------------------

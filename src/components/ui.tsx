@@ -20,18 +20,19 @@ export function Container({
 type ButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "outline" | "ghost" | "whatsapp";
+  variant?: "primary" | "dark" | "outline" | "ghost" | "whatsapp";
   external?: boolean;
   className?: string;
   withArrow?: boolean;
 };
 
 const variants = {
-  primary:
-    "bg-amber text-white hover:bg-amber-600 shadow-sm",
+  // Amarelo da marca só funciona com texto petróleo em cima.
+  primary: "bg-amber text-graphite hover:bg-amber-600 shadow-sm",
+  dark: "bg-graphite text-white hover:bg-graphite-700 shadow-sm",
   outline:
     "border border-sand-200 bg-white text-ink hover:border-graphite hover:text-graphite",
-  ghost: "text-graphite hover:text-amber",
+  ghost: "text-graphite hover:text-graphite-700 hover:underline underline-offset-4",
   whatsapp: "bg-[#25D366] text-white hover:brightness-95 shadow-sm",
 };
 
@@ -83,7 +84,12 @@ export function SectionHeading({
   return (
     <div className={`max-w-2xl ${alignCls} ${className}`}>
       {eyebrow && (
-        <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-amber uppercase">
+        <p
+          className={`mb-3 flex items-center gap-2 text-xs font-semibold tracking-[0.18em] text-graphite uppercase ${
+            align === "center" ? "justify-center" : ""
+          }`}
+        >
+          <span className="h-2 w-2 shrink-0 rounded-full bg-amber" aria-hidden />
           {eyebrow}
         </p>
       )}

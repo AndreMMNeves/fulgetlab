@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { obras } from "@/lib/content";
 import { Container } from "@/components/ui";
-import { Media } from "@/components/Media";
+import { Photo } from "@/components/Media";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 
@@ -23,8 +23,9 @@ export default function PortfolioPage() {
           { label: "Obras", href: "/portfolio" },
         ]}
       >
-        Uma seleção de trabalhos em Fulget e Granilite. As imagens abaixo são
-        exemplos — substitua pelas fotos reais das suas obras.
+        Uma seleção de trabalhos executados pela nossa equipe em Fulget e
+        Granilite — de áreas de piscina e calçadas a halls, escadarias e
+        pisos com desenho sob medida.
       </PageHeader>
 
       <section className="py-16">
@@ -35,13 +36,19 @@ export default function PortfolioPage() {
                 key={o.titulo}
                 className="group overflow-hidden rounded-2xl border border-sand-200 bg-white"
               >
-                <Media label={o.titulo} tom={o.tom} aspect="aspect-[4/3]" rounded="rounded-none" />
-                <figcaption className="flex items-center justify-between p-5">
+                <Photo
+                  foto={o.foto}
+                  aspect="aspect-[4/3]"
+                  rounded="rounded-none"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                />
+                <figcaption className="flex items-start justify-between gap-3 p-5">
                   <div>
                     <p className="text-sm font-semibold text-ink">{o.titulo}</p>
-                    <p className="text-xs text-stone">{o.local}</p>
+                    <p className="text-xs text-stone">{o.contexto}</p>
                   </div>
-                  <span className="rounded-full bg-sand-100 px-3 py-1 text-xs font-medium text-graphite">
+                  <span className="shrink-0 rounded-full bg-sand-100 px-3 py-1 text-xs font-medium text-graphite">
                     {o.tipo}
                   </span>
                 </figcaption>

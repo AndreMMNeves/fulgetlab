@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { produtos } from "@/lib/content";
 import { site } from "@/lib/site";
 import { Container, Button } from "@/components/ui";
-import { Media } from "@/components/Media";
+import { Photo } from "@/components/Media";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { ServiceJsonLd } from "@/components/JsonLd";
@@ -65,7 +65,13 @@ export default async function ProdutoPage({
       {/* Intro + imagem */}
       <section className="py-16">
         <Container className="grid items-start gap-10 lg:grid-cols-2">
-          <Media label={`${p.nome} — foto do acabamento`} tom={p.tom} aspect="aspect-[4/3]" className="shadow-lg shadow-black/5" />
+          <Photo
+            foto={p.capa}
+            aspect="aspect-[4/3]"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            priority
+            className="shadow-lg shadow-black/5"
+          />
           <div>
             <h2 className="text-2xl font-semibold text-ink">O que é o {p.nome}</h2>
             <p className="mt-4 text-base leading-relaxed text-stone">{p.descricao}</p>
@@ -85,7 +91,7 @@ export default async function ProdutoPage({
             <ul className="mt-5 space-y-3">
               {p.aplicacoes.map((a) => (
                 <li key={a} className="flex items-start gap-3 text-sm text-graphite">
-                  <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-amber" />
+                  <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-graphite" />
                   {a}
                 </li>
               ))}
@@ -96,7 +102,7 @@ export default async function ProdutoPage({
             <ul className="mt-5 space-y-3">
               {p.beneficios.map((b) => (
                 <li key={b} className="flex items-start gap-3 text-sm text-graphite">
-                  <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-amber" />
+                  <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-graphite" />
                   {b}
                 </li>
               ))}
@@ -114,10 +120,41 @@ export default async function ProdutoPage({
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {p.acabamentos.map((a) => (
-              <div key={a} className="rounded-2xl border border-sand-200 bg-white p-5">
-                <Media label={a} tom={p.tom} aspect="aspect-square" rounded="rounded-xl" className="mb-4" />
-                <p className="text-sm font-medium text-ink">{a}</p>
+              <div
+                key={a.nome}
+                className="rounded-2xl border border-sand-200 bg-white p-5"
+              >
+                <Photo
+                  foto={a.foto}
+                  aspect="aspect-square"
+                  rounded="rounded-xl"
+                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+                  className="mb-4"
+                />
+                <p className="text-sm font-medium text-ink">{a.nome}</p>
               </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Galeria de obras do produto */}
+      <section className="bg-sand-100 py-16">
+        <Container>
+          <h3 className="text-2xl font-semibold text-ink">
+            Obras executadas em {p.nome}
+          </h3>
+          <p className="mt-3 max-w-2xl text-stone">
+            Fotos reais de aplicações da nossa equipe.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {p.galeria.map((foto) => (
+              <Photo
+                key={foto.src}
+                foto={foto}
+                aspect="aspect-[4/3]"
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              />
             ))}
           </div>
         </Container>
@@ -132,13 +169,13 @@ export default async function ProdutoPage({
               className="group flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-sand-200 bg-white p-8 transition hover:shadow-lg hover:shadow-black/5"
             >
               <div>
-                <p className="text-xs font-semibold tracking-wide text-amber uppercase">
+                <p className="text-xs font-semibold tracking-wide text-graphite uppercase">
                   Conheça também
                 </p>
                 <p className="mt-1 text-xl font-semibold text-ink">{outro.nome}</p>
                 <p className="mt-1 max-w-lg text-sm text-stone">{outro.resumo}</p>
               </div>
-              <ArrowRightIcon className="h-6 w-6 text-amber transition-transform group-hover:translate-x-1" />
+              <ArrowRightIcon className="h-6 w-6 text-graphite transition-transform group-hover:translate-x-1" />
             </Link>
           </Container>
         </section>

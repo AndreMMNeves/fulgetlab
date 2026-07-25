@@ -21,8 +21,11 @@ export function OrganizationJsonLd() {
         description: site.description,
         url: site.url,
         telephone: site.phone.display,
-        email: site.email,
+        ...(site.email ? { email: site.email } : {}),
+        logo: `${site.url}/marca/fulgetlab-vertical-escuro.png`,
         image: `${site.url}/opengraph-image`,
+        // Perfis oficiais — conecta o site às redes nos resultados de busca.
+        sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
         address: {
           "@type": "PostalAddress",
           streetAddress: site.address.street,

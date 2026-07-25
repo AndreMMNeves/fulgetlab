@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import { diferenciais } from "@/lib/content";
 import { Container } from "@/components/ui";
-import { Media } from "@/components/Media";
+import { Photo } from "@/components/Media";
+import { fotosFulget, fotosGranilite } from "@/lib/fotos";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { CheckIcon } from "@/components/icons";
@@ -38,7 +39,27 @@ export default function SobrePage() {
       {/* História */}
       <section className="py-16">
         <Container className="grid items-center gap-10 lg:grid-cols-2">
-          <Media label="Equipe / obra da empresa" tom="grafite" aspect="aspect-[4/3]" className="shadow-lg shadow-black/5" />
+          <div className="grid gap-4">
+            <Photo
+              foto={fotosGranilite.degrausSalao}
+              aspect="aspect-[4/3]"
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              priority
+              className="shadow-lg shadow-black/5"
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <Photo
+                foto={fotosFulget.deckGrafite}
+                aspect="aspect-[4/3]"
+                sizes="(min-width: 1024px) 22vw, 45vw"
+              />
+              <Photo
+                foto={fotosGranilite.detalheLosango}
+                aspect="aspect-[4/3]"
+                sizes="(min-width: 1024px) 22vw, 45vw"
+              />
+            </div>
+          </div>
           <div>
             <h2 className="text-2xl font-semibold text-ink">Nossa história</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-stone">
@@ -58,7 +79,7 @@ export default function SobrePage() {
             <ul className="mt-7 grid gap-2.5 sm:grid-cols-2">
               {valores.map((v) => (
                 <li key={v} className="flex items-start gap-2 text-sm text-graphite">
-                  <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-amber" />
+                  <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-graphite" />
                   {v}
                 </li>
               ))}

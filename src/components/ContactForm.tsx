@@ -35,7 +35,7 @@ export function ContactForm() {
   };
 
   const field =
-    "mt-1.5 w-full rounded-xl border border-sand-200 bg-white px-4 py-3 text-sm text-ink outline-none focus:border-amber";
+    "mt-1.5 w-full rounded-xl border border-sand-200 bg-white px-4 py-3 text-sm text-ink outline-none focus:border-graphite";
   const label = "text-sm font-medium text-graphite";
 
   return (

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { produtos, publicos } from "@/lib/content";
 import { Container, Button } from "@/components/ui";
-import { Media } from "@/components/Media";
+import { Photo } from "@/components/Media";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { ArrowRightIcon, CheckIcon } from "@/components/icons";
@@ -38,7 +38,23 @@ export default function CatalogoPage() {
               className="grid items-center gap-8 rounded-3xl border border-sand-200 bg-white p-6 sm:p-8 lg:grid-cols-2"
             >
               <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                <Media label={`${p.nome} — foto do acabamento`} tom={p.tom} aspect="aspect-[4/3]" />
+                <Photo
+                  foto={p.capa}
+                  aspect="aspect-[4/3]"
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  priority={i === 0}
+                />
+                <div className="mt-4 grid grid-cols-4 gap-3">
+                  {p.acabamentos.map((a) => (
+                    <Photo
+                      key={a.nome}
+                      foto={a.foto}
+                      aspect="aspect-square"
+                      rounded="rounded-lg"
+                      sizes="120px"
+                    />
+                  ))}
+                </div>
               </div>
               <div>
                 <h2 className="text-3xl font-semibold text-ink">{p.nome}</h2>
@@ -48,7 +64,7 @@ export default function CatalogoPage() {
                 <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
                   {p.beneficios.slice(0, 4).map((b) => (
                     <li key={b} className="flex items-start gap-2 text-sm text-graphite">
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-amber" />
+                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-graphite" />
                       {b}
                     </li>
                   ))}
@@ -68,12 +84,16 @@ export default function CatalogoPage() {
       <section className="bg-sand-100 py-16">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-amber uppercase">
-              Como você prefere
+            <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-graphite uppercase">
+              Para quem
             </p>
             <h2 className="text-3xl font-semibold text-ink sm:text-4xl">
-              Material, serviço ou os dois juntos
+              Da grande obra à reforma de casa
             </h2>
+            <p className="mt-4 text-base leading-relaxed text-stone">
+              Em qualquer um dos casos você escolhe: só o material, só a
+              aplicação, ou os dois juntos.
+            </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {publicos.map((pub) => (
@@ -85,7 +105,7 @@ export default function CatalogoPage() {
                 <ul className="mt-6 space-y-3">
                   {pub.itens.map((it) => (
                     <li key={it} className="flex items-start gap-3 text-sm text-graphite">
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-amber" />
+                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-graphite" />
                       {it}
                     </li>
                   ))}
