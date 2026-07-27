@@ -64,7 +64,7 @@ export default function Home() {
             <dl className="mt-12 grid max-w-md grid-cols-3 gap-6">
               {[
                 { n: "+25", l: "anos de experiência" },
-                { n: "2", l: "produtos especializados" },
+                { n: "+145", l: "projetos entregues" },
                 { n: "100%", l: "obra no prazo" },
               ].map((s) => (
                 <div key={s.l}>

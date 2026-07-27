@@ -6,6 +6,8 @@ import { site } from "@/lib/site";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = site.name;
+// Gera o PNG no build (necessário para exportação estática).
+export const dynamic = "force-static";
 
 /** Lê um arquivo de /public e devolve como data URI (padrão do next/og). */
 async function dataUri(relativePath: string, mime: string) {
@@ -16,7 +18,7 @@ async function dataUri(relativePath: string, mime: string) {
 export default async function OpengraphImage() {
   const [logo, foto] = await Promise.all([
     dataUri("marca/fulgetlab-horizontal.png", "image/png"),
-    dataUri("fotos/granilite-degraus-salao.jpg", "image/jpeg"),
+    dataUri("fotos/og-fundo.jpeg", "image/jpeg"),
   ]);
 
   return new ImageResponse(

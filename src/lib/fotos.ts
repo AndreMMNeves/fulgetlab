@@ -7,25 +7,24 @@
  *  basta substituir o arquivo em /public/fotos mantendo o mesmo nome — ou
  *  apontar o `src` abaixo para o arquivo novo.
  *
- *  `w` e `h` são as dimensões reais do arquivo (o Next usa para reservar o
- *  espaço e evitar layout shift). `pos` ajusta o object-position quando o
- *  corte precisa privilegiar uma parte da imagem.
+ *  As fotos são servidas em WebP (convertidas a partir dos JPEG originais,
+ *  lado maior de 1200px). O componente <Photo /> usa `fill`, então não
+ *  precisa das dimensões — a proporção vem da caixa (aspect-*).
+ *
+ *  `pos` ajusta o object-position quando o corte precisa privilegiar uma
+ *  parte da imagem (ex.: "object-top" para manter a piscina no quadro).
  * ============================================================================
  */
 
 export type Foto = {
   src: string;
   alt: string;
-  w: number;
-  h: number;
   pos?: string;
 };
 
-const f = (src: string, alt: string, w: number, h: number, pos?: string): Foto => ({
-  src: `/fotos/${src}.jpg`,
+const f = (src: string, alt: string, _w: number, _h: number, pos?: string): Foto => ({
+  src: `/fotos/${src}.webp`,
   alt,
-  w,
-  h,
   pos,
 });
 
@@ -278,11 +277,11 @@ export const texturasGranilite = {
 /** Logotipos da marca (arquivos em /public/marca). */
 export const marca = {
   /** Lockup horizontal (símbolo + FulgetLab Revestimentos) — usar sobre fundo escuro. */
-  horizontal: { src: "/marca/fulgetlab-horizontal.png", w: 2763, h: 790 },
+  horizontal: { src: "/marca/fulgetlab-horizontal.png", w: 900, h: 257 },
   /** Lockup vertical claro (branco + amarelo) — usar sobre fundo escuro. */
-  verticalClaro: { src: "/marca/fulgetlab-vertical-claro.png", w: 2253, h: 1530 },
+  verticalClaro: { src: "/marca/fulgetlab-vertical-claro.png", w: 600, h: 407 },
   /** Lockup vertical escuro (petróleo) — usar sobre fundo claro. */
-  verticalEscuro: { src: "/marca/fulgetlab-vertical-escuro.png", w: 2253, h: 1530 },
+  verticalEscuro: { src: "/marca/fulgetlab-vertical-escuro.png", w: 600, h: 407 },
   /** Apenas o símbolo "F" em amarelo — usar sobre fundo escuro. */
-  simbolo: { src: "/marca/fulgetlab-simbolo.png", w: 442, h: 790 },
+  simbolo: { src: "/marca/fulgetlab-simbolo.png", w: 300, h: 536 },
 } as const;

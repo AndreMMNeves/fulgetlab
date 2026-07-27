@@ -119,7 +119,10 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-2 py-6 text-xs text-sand-100/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} {site.name}. Todos os direitos reservados.</p>
+          <p>
+            © {year} {site.name}. Todos os direitos reservados.
+            {site.cnpj && <> · CNPJ {site.cnpj}</>}
+          </p>
           <p>Fulget e Granilite — venda de material e aplicação profissional.</p>
         </Container>
       </div>

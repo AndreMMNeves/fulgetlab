@@ -13,7 +13,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Contato — peça seu orçamento de Fulget e Granilite",
-  description: `Fale com a ${site.name} pelo WhatsApp ou telefone. Orçamento sem compromisso para Fulget e Granilite em ${site.address.serviceArea}.`,
+  description: `Fale com a ${site.name} pelo WhatsApp, telefone ou e-mail. Orçamento sem compromisso para Fulget e Granilite em ${site.address.serviceArea}.`,
   alternates: { canonical: "/contato" },
 };
 

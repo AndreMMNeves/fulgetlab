@@ -19,9 +19,9 @@ export const site = {
   description:
     "Fabricação, fornecimento e aplicação de revestimentos em Fulget e Granilite para obras residenciais, comerciais e industriais em São Paulo e região. Qualidade, durabilidade e acabamento impecável.",
 
-  // Endereço público atual do site — usado em SEO/sitemap/OG.
-  // Troque quando o domínio próprio entrar no ar.
-  url: "https://fulgetlab-site.vercel.app",
+  // Endereço público do site — usado em SEO/sitemap/canonical/OG.
+  // O .htaccess redireciona www -> sem www, então mantenha sem o "www".
+  url: "https://fulgetlab.com.br",
 
   // ---------------------------------------------------------------------------
   //  CONTATO
@@ -38,7 +38,7 @@ export const site = {
     message: "Olá! Gostaria de um orçamento de revestimento (Fulget/Granilite).",
   },
   // Deixe vazio para esconder o e-mail do site (rodapé e página de contato).
-  email: "",
+  email: "comercial@fulgetlab.com.br",
 
   address: {
     street: "R. Eng. José Pastore, 138 — Jardim das Graças",
@@ -50,6 +50,9 @@ export const site = {
   },
 
   hours: "Segunda a sexta, 8h às 17h30 — Sábado, 8h às 12h",
+
+  // Aparece no rodapé e no JSON-LD. Deixe vazio para esconder.
+  cnpj: "68.136.391/0001-00",
 
   social: {
     instagram: "https://www.instagram.com/fulgetlab",

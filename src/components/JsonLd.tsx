@@ -22,6 +22,7 @@ export function OrganizationJsonLd() {
         url: site.url,
         telephone: site.phone.display,
         ...(site.email ? { email: site.email } : {}),
+        ...(site.cnpj ? { taxID: site.cnpj } : {}),
         logo: `${site.url}/marca/fulgetlab-vertical-escuro.png`,
         image: `${site.url}/opengraph-image`,
         // Perfis oficiais — conecta o site às redes nos resultados de busca.
